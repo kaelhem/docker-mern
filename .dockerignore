@@ -1,0 +1,11 @@
+**/node_modules
+**/logs/
+**/.tmp/
+**/*.log
+.DS_Store
+**/.gitignore
+**/.git
+
+data/
+
+app/.env

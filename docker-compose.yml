@@ -1,0 +1,43 @@
+version: "3"
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/db:/data/db
+
+  webapp:
+    build: .
+    container_name: webapp
+    depends_on:
+      - mongo
+    links:
+      - mongo 
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./docker.env
+    volumes:
+      - ./app/server:/usr/src/app/server
+      - ./app/client:/usr/src/app/client
+    command: ["yarn", "start"]
+
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    depends_on:
+      - webapp
+    links:
+      - webapp
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./config/static:/static/
+      - ./config/ssl:/ssl/
