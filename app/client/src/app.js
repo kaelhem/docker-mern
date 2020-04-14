@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 
+/*
+An helper method to call the "todo" apis
+*/
 const todoApi = async (api, method='GET', params=null) => {
   const opts = {
     headers: {
