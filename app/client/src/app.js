@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import './App.css'
 
 /*
 An helper method to call the "todo" apis
